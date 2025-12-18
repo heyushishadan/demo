@@ -64,6 +64,10 @@ class _ExpandableCardDemoState extends State<ExpandableCardDemo> {
         child: Column(
           children: [
             _buildAnimatedCard(_isExpanded, count),
+            _buildAnimatedCard(!_isExpanded, count-1),
+            _buildAnimatedCard(_isExpanded, count),
+            _buildAnimatedCard(!_isExpanded, count-1),
+            _buildAnimatedCard(_isExpanded, count),
           ],
         )
       ),
