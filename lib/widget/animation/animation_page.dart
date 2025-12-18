@@ -42,35 +42,38 @@ class _AnimationDemoState extends State<AnimationDemo> {
       body:Container(
         child: Wrap(
           children: [
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false, // 禁止点外面关闭
-                  builder: (_) => RankAnimationDialog(
-                    oldRank: 50,
+            _Button(
+              '查看排名变化', 
+              ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => RankAnimationDialog(oldRank: 50,
                     newRank: 18,
                     duration: const Duration(seconds: 5),
+                  ),))
                   ),
-                );
-              },
-              child: const Text('查看排名变化'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ExpandableCardDemo()));
-              },
-              child: const Text('展开卡片动画'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ExpandableBallDemo()));
-              },
-              child: const Text('旋转小球'),
-            ),
+
+            _Button(
+              '展开卡片动画', 
+              ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ExpandableCardDemo()))
+              ),
+            
+            _Button(
+              '选择小球', 
+              ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ExpandableBallDemo()))
+              ),
+          
           ],
         ),
       ), 
+    );
+  }
+
+
+  Widget _Button(String title, VoidCallback onPressed) {
+    return Padding(
+      padding: EdgeInsets.all(10.w),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(title),
+      ),
     );
   }
 }
