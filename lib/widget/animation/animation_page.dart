@@ -1,4 +1,5 @@
 import 'package:demo3/utils/size_extension.dart';
+import 'package:demo3/widget/animation/animation_ball.dart';
 import 'package:demo3/widget/animation/dialog_tip.dart';
 import 'package:demo3/widget/animation/expandable_card.dart';
 import 'package:demo3/widget/animation/rank_animation_dialog.dart';
@@ -60,6 +61,12 @@ class _AnimationDemoState extends State<AnimationDemo> {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ExpandableCardDemo()));
               },
               child: const Text('展开卡片动画'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ExpandableBallDemo()));
+              },
+              child: const Text('旋转小球'),
             ),
           ],
         ),
