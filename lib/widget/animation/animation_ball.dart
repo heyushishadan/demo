@@ -26,12 +26,12 @@ class _ExpandableBallDemoState extends State<ExpandableBallDemo>
   void initState() {
     super.initState();
 
-    _shrinkStep = 20.w;
-    _ballSize = 20.w;
+    _shrinkStep = 40.w;
+    _ballSize = 40.w;
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1), // 一圈所需时间
+      duration: const Duration(seconds: 5), // 一圈所需时间
     )
       ..addListener(() {
         setState(() {});
