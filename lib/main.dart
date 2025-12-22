@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:demo3/widget/animation/animation_page.dart';
 import 'package:demo3/widget/counter/count_Controller.dart';
 import 'package:demo3/widget/counter/counterPage.dart';
@@ -7,12 +9,28 @@ import 'package:demo3/widget/luyouchuanzhi/page1.dart';
 import 'package:demo3/widget/notebook/notebook1_page.dart';
 import 'package:demo3/widget/notebook/notebook2_page.dart';
 import 'package:demo3/utils/size_extension.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:window_manager/window_manager.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 桌面端设定窗口尺寸为设计稿大小
+  if (!kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
+    await windowManager.ensureInitialized();
+    const windowOptions = WindowOptions(
+      size: Size(500, 800),
+      minimumSize: Size(500, 800),
+      center: true,
+    );
+    await windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
+
   FlutterError.onError = (FlutterErrorDetails details) {
     if (details.exception.toString().contains('KeyDownEvent') ||
         details.exception.toString().contains('HardwareKeyboard')) {
@@ -20,15 +38,7 @@ void main() {
     }
     FlutterError.presentError(details);
   };
-  builder: (context, child) {
-    // 全局初始化屏幕适配，设置自定义设计稿尺寸
-    ScreenUtil.init(
-      context,
-      designWidth: 800,    // 设置您想要的设计稿宽度
-      designHeight: 1480,   // 设置您想要的设计稿高度
-    );
-    return child ?? const SizedBox.shrink();
-  };
+
   runApp(const MyApp());
 }
 
@@ -46,7 +56,12 @@ class MyApp extends StatelessWidget {
       ),
       builder: (context, child) {
         // 全局初始化屏幕适配，只需在这里调用一次
-        ScreenUtil.init(context);
+        // 在这里设置“设计稿”的宽高，后续所有 .w / .h / .sp 都会按这个比例缩放
+        ScreenUtil.init(
+          context,
+          designWidth: 800, // 设计稿宽度
+          designHeight: 1480, // 设计稿高度
+        );
         return child ?? const SizedBox.shrink();
       },
       home: const MyHomePage(title: '豆哥的demo'),

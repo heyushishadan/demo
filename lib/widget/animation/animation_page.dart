@@ -2,6 +2,7 @@ import 'package:demo3/utils/size_extension.dart';
 import 'package:demo3/widget/animation/animation_ball.dart';
 import 'package:demo3/widget/animation/dialog_tip.dart';
 import 'package:demo3/widget/animation/expandable_card.dart';
+import 'package:demo3/widget/animation/progress_bar.dart';
 import 'package:demo3/widget/animation/rank_animation_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -58,6 +59,11 @@ class _AnimationDemoState extends State<AnimationDemo> {
             _Button(
               '选择小球', 
               ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ExpandableBallDemo()))
+              ),
+
+              _Button(
+              '进度条动画', 
+              ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ExplicitAnimationDemo()))
               ),
           
           ],
